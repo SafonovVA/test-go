@@ -1,7 +1,6 @@
 package main
 
 import (
-	"os"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/safonovva/test-go"
@@ -10,9 +9,10 @@ import (
 	"github.com/safonovva/test-go/pkg/service"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+	"os"
 )
 
-func main()  {
+func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 
 	if err := initConfig(); err != nil {
@@ -23,13 +23,13 @@ func main()  {
 		logrus.Fatalf("Error loading env variables: %s", err.Error())
 	}
 
-	db, err := repository.NewPostrgesDb(repository.Config{
-		Host: viper.GetString("db.host"),
-		Port: viper.GetString("db.port"),
-		Username: viper.GetString("db.username"),
+	db, err := repository.NewPostgresDb(repository.Config{
+		Host:     viper.GetString("db.host"),
+		Port:     os.Getenv("FORWARD_DB_PORT"),
+		Username: os.Getenv("DB_USERNAME"),
 		Password: os.Getenv("DB_PASSWORD"),
-		DBName: viper.GetString("db.dbname"),
-		SSLMode: viper.GetString("db.sslmode"),
+		DBName:   os.Getenv("DB_DATABASE"),
+		SSLMode:  viper.GetString("db.sslmode"),
 	})
 
 	if err != nil {

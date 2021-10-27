@@ -1,0 +1,19 @@
+POST {{host}}/auth/sign-up
+Content-Type: application/json
+
+{
+  "name": "test",
+  "username": "again test",
+  "password": "123123123"
+}
+
+###
+POST {{host}}/auth/sign-in
+Content-Type: application/json
+
+{
+  "username": "again test",
+  "password": "123123123"
+}
+
+###
