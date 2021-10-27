@@ -25,5 +25,13 @@ func (r *AuthPostgres) CreateUser(user models.User) (int, error)  {
 
 	return id, nil
 }
+
+func (r *AuthPostgres) GetUser(username string, password string) (models.User, error)  {
+	var user models.User
+	query := fmt.Sprintf("SELECT id FROM %s WHERE username = $1 AND password_hash = $2", usersTable)
+	err := r.db.Get(&user, query, username, password)
+
+	return user, err
+}
 //migrate -path ./schema -database 'postgres://postgres:1@localhost:5434/postgres?sslmode=disable' up 
 //migrate -path ./schema -database 'postgres://postgres:1@localhost:5434/postgres?sslmode=disable' down
