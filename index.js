@@ -1,13 +1,42 @@
 let array = Array.from({length: 50}, () => Math.floor(Math.random() * 40));
 
-function sorts(arr) {
+function fastSorts(arr) {
     if (arr.length < 2) {
         return arr;
     }
     let pivot = arr.shift();
     let less = arr.filter(x => x <= pivot);
     let greater = arr.filter(x => x > pivot);
-    return sorts(less).concat(pivot, sorts(greater));
+    return fastSorts(less).concat(pivot, fastSorts(greater));
+}
+
+function vybor(array) {
+	for (i = 0, min = i; i < array.length - 1; i++) {
+		for (j = i; j < array.length; j++) {
+			if (array[min] > array[j]) {
+				min = j;
+			}
+		}
+		if (i != min) {
+			tmp = array[min];
+			array[min] = array[i];
+			array[i] = tmp;
+		}
+	}
+	return array;
+}
+
+function vstavka(array) {
+	for (i = 1; i < array.length; i++) {
+		for (j = i, max = 0; j > 0; j--) {
+			if (array[j] < array[j - 1]) {
+				max = array[j];
+				array[j] = array[j - 1];
+				array[j - 1] = max;
+			}
+		}
+	}
+	return array;
 }
 
 function search(arr, key) {
@@ -27,13 +56,24 @@ function search(arr, key) {
     }
     return -1;
 }
-console.log(array)
-let sorted = sorts(array);
+console.log('start array', array)
 
-console.log(sorted)
-let foundIndex = search(sorted, 7)
+let sorted = fastSorts(array);
+console.log('fast sort', sorted)
 
-console.log(foundIndex, sorted[foundIndex])
+sorted = vybor(array)
+console.log('vybor', sorted)
+
+sorted = vstavka(array)
+console.log('vstavka', sorted)
+
+const searchValue = 7
+let foundIndex = search(sorted, searchValue)
+
+console.log('search value', searchValue, 'index:', foundIndex, 'value:', sorted[foundIndex])
+
+let graph = []
+graph['sdlfj'] = ['sdf']
 
 /////////////
 /*package main
