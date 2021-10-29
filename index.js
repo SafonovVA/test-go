@@ -1,5 +1,4 @@
 let array = Array.from({length: 50}, () => Math.floor(Math.random() * 40));
-console.log(array)
 
 function sorts(arr) {
     if (arr.length < 2) {
@@ -10,11 +9,34 @@ function sorts(arr) {
     let greater = arr.filter(x => x > pivot);
     return sorts(less).concat(pivot, sorts(greater));
 }
-array = sorts(array);
 
+function search(arr, key) {
+	let start = 0;
+    let end = arr.length - 1;
+
+    while (start <= end) {
+        let middle = Math.floor((start + end) / 2);
+
+        if (arr[middle] === key) {
+            return middle;
+        } else if (arr[middle] < key) {
+            start = middle + 1;
+        } else {
+            end = middle - 1;
+        }
+    }
+    return -1;
+}
 console.log(array)
+let sorted = sorts(array);
+
+console.log(sorted)
+let foundIndex = search(sorted, 7)
+
+console.log(foundIndex, sorted[foundIndex])
+
 /////////////
-package main
+/*package main
 
 import (
 	"math/rand"
@@ -52,4 +74,4 @@ func sort(array []int) []int {
 
 	lessPivot := append(sort(less), pivot)
 	return append(lessPivot, sort(greater)...)
-}
+}*/
