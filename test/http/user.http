@@ -17,3 +17,5 @@ Content-Type: application/json
 }
 
 ###
+POST {{host}}/api/lists
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzU1MjMwMjIsImlhdCI6MTYzNTQ3OTgyMiwidXNlcl9pZCI6MX0.s8wDM9jGysz65UltrPlK1OXxI70rDILzFKfLsy6ZWRc
